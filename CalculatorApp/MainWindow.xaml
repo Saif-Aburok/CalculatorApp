@@ -1,0 +1,88 @@
+﻿<Window x:Class="CalculatorApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CalculatorApp"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="520" Width="360">
+    <Grid Background="#1E1E1E">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- شريط علوي -->
+            <RowDefinition Height="2*"/>
+            <!-- الشاشة -->
+            <RowDefinition Height="1*"/>
+            <!-- الصف 1: C, ⌫, % , / -->
+            <RowDefinition Height="1*"/>
+            <!-- الصف 2: 7, 8, 9, * -->
+            <RowDefinition Height="1*"/>
+            <!-- الصف 3: 4, 5, 6, - -->
+            <RowDefinition Height="1*"/>
+            <!-- الصف 4: 1, 2, 3, + -->
+            <RowDefinition Height="1*"/>
+            <!-- الصف 5: 0, = -->
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- الشريط العلوي وزر الساعة -->
+        <StackPanel Grid.Row="0" Grid.ColumnSpan="4" Orientation="Horizontal" HorizontalAlignment="Right" Margin="10,5,10,0">
+            <Button Content="🕒 سجل العمليات" Name="btnHistory" Background="Transparent" Foreground="#A5A5A5" BorderThickness="0" FontSize="14" Cursor="Hand" Click="History_Toggle_Click"/>
+        </StackPanel>
+
+        <!-- الشاشة الرئيسية -->
+        <TextBox Grid.Row="1" Grid.ColumnSpan="4" Name="txtDisplay" 
+                 FontSize="36" TextAlignment="Right" VerticalAlignment="Center" 
+                 Margin="10" Background="#111111" Foreground="#FFFFFF" 
+                 BorderThickness="0" Padding="10" IsReadOnly="True"/>
+
+        <!-- الصف الأول: أزرار التحكم والعمليات العليا -->
+        <Button Content="C" Grid.Row="2" Grid.Column="0" FontSize="22" Margin="4" Background="#A5A5A5" Foreground="#000000" BorderThickness="0" FontWeight="Bold" Click="Clear_Click"/>
+        <Button Content="⌫" Grid.Row="2" Grid.Column="1" FontSize="22" Margin="4" Background="#A5A5A5" Foreground="#000000" BorderThickness="0" FontWeight="Bold" Click="Backspace_Click"/>
+        <Button Content="%" Grid.Row="2" Grid.Column="2" FontSize="22" Margin="4" Background="#A5A5A5" Foreground="#000000" BorderThickness="0" FontWeight="Bold" Click="Percent_Click"/>
+        <Button Content="/" Grid.Row="2" Grid.Column="3" FontSize="22" Margin="4" Background="#FF9500" Foreground="#FFFFFF" BorderThickness="0" FontWeight="Bold" Click="Operator_Click"/>
+
+        <!-- الصف الثاني: الأرقام والضرب -->
+        <Button Content="7" Grid.Row="3" Grid.Column="0" FontSize="22" Margin="4" Background="#333333" Foreground="#FFFFFF" BorderThickness="0" Click="Button_Click"/>
+        <Button Content="8" Grid.Row="3" Grid.Column="1" FontSize="22" Margin="4" Background="#333333" Foreground="#FFFFFF" BorderThickness="0" Click="Button_Click"/>
+        <Button Content="9" Grid.Row="3" Grid.Column="2" FontSize="22" Margin="4" Background="#333333" Foreground="#FFFFFF" BorderThickness="0" Click="Button_Click"/>
+        <Button Content="*" Grid.Row="3" Grid.Column="3" FontSize="22" Margin="4" Background="#FF9500" Foreground="#FFFFFF" BorderThickness="0" FontWeight="Bold" Click="Operator_Click"/>
+
+        <!-- الصف الثالث: الأرقام والطرح -->
+        <Button Content="4" Grid.Row="4" Grid.Column="0" FontSize="22" Margin="4" Background="#333333" Foreground="#FFFFFF" BorderThickness="0" Click="Button_Click"/>
+        <Button Content="5" Grid.Row="4" Grid.Column="1" FontSize="22" Margin="4" Background="#333333" Foreground="#FFFFFF" BorderThickness="0" Click="Button_Click"/>
+        <Button Content="6" Grid.Row="4" Grid.Column="2" FontSize="22" Margin="4" Background="#333333" Foreground="#FFFFFF" BorderThickness="0" Click="Button_Click"/>
+        <Button Content="-" Grid.Row="4" Grid.Column="3" FontSize="22" Margin="4" Background="#FF9500" Foreground="#FFFFFF" BorderThickness="0" FontWeight="Bold" Click="Operator_Click"/>
+
+        <!-- الصف الرابع: الأرقام والجمع -->
+        <Button Content="1" Grid.Row="5" Grid.Column="0" FontSize="22" Margin="4" Background="#333333" Foreground="#FFFFFF" BorderThickness="0" Click="Button_Click"/>
+        <Button Content="2" Grid.Row="5" Grid.Column="1" FontSize="22" Margin="4" Background="#333333" Foreground="#FFFFFF" BorderThickness="0" Click="Button_Click"/>
+        <Button Content="3" Grid.Row="5" Grid.Column="2" FontSize="22" Margin="4" Background="#333333" Foreground="#FFFFFF" BorderThickness="0" Click="Button_Click"/>
+        <Button Content="+" Grid.Row="5" Grid.Column="3" FontSize="22" Margin="4" Background="#FF9500" Foreground="#FFFFFF" BorderThickness="0" FontWeight="Bold" Click="Operator_Click"/>
+
+        <!-- الصف الخامس: زر الصفر ممتد وزر يساوي منفصل ومربع تماماً -->
+        <Button Content="0" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" FontSize="22" Margin="4" Background="#333333" Foreground="#FFFFFF" BorderThickness="0" Click="Button_Click"/>
+        <Button Content="=" Grid.Row="6" Grid.Column="2" Grid.ColumnSpan="2" FontSize="22" Margin="4" Background="#FF9500" Foreground="#FFFFFF" BorderThickness="0" FontWeight="Bold" Click="Equal_Click"/>
+
+        <!-- شاشة السجل الجانبية متوافقة مع الأبعاد الجديدة -->
+        <Grid Name="HistoryGrid" Grid.Row="1" Grid.RowSpan="6" Grid.ColumnSpan="4" Background="#1A1A1A" Visibility="Collapsed">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <ListBox Name="lstHistory" Background="#111111" Foreground="#FFFFFF" BorderThickness="0" FontSize="16" Margin="10"/>
+            <UniformGrid Grid.Row="1" Rows="1" Columns="2" Margin="5">
+                <Button Content="مسح السجل 🗑️" Margin="5" Padding="8" Background="#CD5C5C" Foreground="White" BorderThickness="0" Click="ClearHistory_Click"/>
+                <Button Content="إغلاق السجل" Margin="5" Padding="8" Background="#333333" Foreground="White" BorderThickness="0" Click="History_Toggle_Click"/>
+            </UniformGrid>
+        </Grid>
+    </Grid>
+
+
+
+</Window>
